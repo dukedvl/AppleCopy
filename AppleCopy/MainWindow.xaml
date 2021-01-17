@@ -1,0 +1,87 @@
+﻿<Window x:Class="AppleCopy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppleCopy"
+        mc:Ignorable="d"
+        Title="AppleCopy" MinHeight="450" MinWidth="500" ResizeMode="CanResizeWithGrip" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
+        >
+    <Window.DataContext>
+        <local:MainWindowVM/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5 0"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5 0"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+
+        <TextBlock Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Center"><Run FontSize="24" FontWeight="Bold">Apple Copy</Run></TextBlock>
+
+        <Label Grid.Row="1" Grid.Column="0">Source Folder:</Label>
+        <Label Grid.Row="2" Grid.Column="0">Destination Folder:</Label>
+
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CopyProcess.SourceDirectory}"/>
+        <Button Grid.Row="1" Grid.Column="2" Command="{Binding SelectSourceDirectoryCmd}">Browse</Button>
+
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CopyProcess.DestinationDirectory}"/>
+        <Button Grid.Row="2" Grid.Column="2" Command="{Binding SelectDestinationDirectoryCmd}">Browse</Button>
+
+
+        <StackPanel Grid.Row="3" Grid.Column="1">
+            <TextBlock local:Prop.IsVisible="{Binding CopyProcess.SourceDirSelected}">Amount to Transfer: <Run Text="{Binding CopyProcess.SourceDirectorySizeString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/></TextBlock>
+            <TextBlock local:Prop.IsVisible="{Binding CopyProcess.SourceDirSelected}">File Count: <Run Text="{Binding CopyProcess.SourceDirFileCount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/></TextBlock>
+            <TextBlock local:Prop.IsVisible="{Binding CopyProcess.SourceDirSelected}">Transfer Time (approx): <Run Text="{Binding CopyProcess.EstimatedTransferTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/></TextBlock>
+            <ProgressBar Grid.Row="4" Grid.ColumnSpan="2" local:Prop.IsVisible="{Binding CopyProcess.IsRunning}" Value="{Binding CopyProcess.CompletedTransfers}" Maximum="{Binding CopyProcess.TotalFiles}" Height="20" Margin="0 5"/>
+        </StackPanel>
+
+        <Button Grid.Row="4" Grid.ColumnSpan="3" Width="100" IsEnabled="{Binding CopyProcess.SourceDirSelected}" Command="{Binding CopyFilesCmd}" Content="{Binding CopyProcess.StatusString}"/>
+
+
+
+    </Grid>
+
+
+</Window>
