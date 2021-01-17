@@ -10,11 +10,18 @@ Can re-copy the folder, does not overwrite existing files (In case of failures, 
 
 After running, hit "Open" button to view Destination Directory
 
-
+#Home Screen
 ![Home Screen](/AppleCopy/Docs/Base_Screen.png?raw=true "Home Screen")
 
+#In progress
 ![Mid-Execution](/AppleCopy/Docs/Running_Screen.png?raw=true "Running")
+
+#Final
 ![After transfer](/AppleCopy/Docs/Final_Screen.png?raw=true "Final Screen")
+
+#Source Folder
 ![Typical Apple source folder](/AppleCopy/Docs/Source_Folder.png?raw=true "Source Folder")
+
+#Destination Folder
 ![Typical destination folder](/AppleCopy/Docs/Dest_Folder.png?raw=true "Destination Folder")
 
